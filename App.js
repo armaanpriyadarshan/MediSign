@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text style = {styles.text}>Hello, World!</Text>
+      <Text style = {styles.title}>Welcome to MediSign</Text>
       <StatusBar style="auto" />
     </View>
   );
@@ -13,11 +13,11 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#071221',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  text: {
+  title: {
     color: 'white',
   }
 });

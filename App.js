@@ -39,10 +39,11 @@ const styles = StyleSheet.create({
 
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#C0C0C0',
-    marginTop: 50
+    marginTop: 50,
+    width: '100%'
   },
   
   title: {

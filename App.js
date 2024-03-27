@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, Alert, TouchableOpacity, Linking, SafeAreaView, TextInput, Button, ScrollView, StatusBar, } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert, TouchableOpacity, Linking, SafeAreaView, TextInput, Button, ScrollView, StatusBar, ImageBackgroun } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts } from "expo-font";
@@ -19,6 +19,7 @@ export default function App() {
         <Stack.Screen name="Questions" component={Questions} />
         <Stack.Screen name="Symptoms" component={Symptoms} />
         <Stack.Screen name="Responses" component={Responses} />
+        <Stack.Screen name="Pain" component={PainScale} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -47,17 +48,19 @@ function Home({ navigation }) {
           style = {styles.frontPanelButtons}
           onPress={() => navigation.navigate('Questions')}>
           <Text style={styles.text}>Questions</Text> 
-          <View style={styles.circle}>
-              <Text style={styles.icon}>?</Text>
-          </View>
+          <Image
+            style={styles.circle}
+            source={require('./assets/question.png')}
+          />
         </TouchableOpacity>
         
         <TouchableOpacity style = {styles.frontPanelButtons}
           onPress={() => navigation.navigate('Symptoms')}>
           <Text style={styles.text}>Symptoms</Text>
-          <View style={styles.circle}>
-              <Text style={styles.icon}>+</Text>
-          </View>
+          <Image
+            style={styles.circle}
+            source={require('./assets/thermometer.png')}
+          />
         </TouchableOpacity>
 
         <TouchableOpacity style = {styles.frontPanelButtons}
@@ -251,7 +254,7 @@ function Responses({navigation}) {
         </TouchableOpacity>
         <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
           style = {styles.list}
-          onPress={() => navigation.navigate('Home')}>
+          onPress={() => navigation.navigate('Pain')}>
           <Text style={styles.phrase}>Pain Scale</Text> 
         </TouchableOpacity>
         <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
@@ -268,57 +271,11 @@ function Responses({navigation}) {
 function PainScale({ navigation }) {
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-          <Image
-            style={styles.logo}
-            source={require('./assets/medisign.png')}
-          />
-          <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
-          style = {styles.title}
-          onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.text}>MediSign</Text>   
-        </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={ () => Linking.openURL('mailto:apriyadarshan@wpi.edu') }>
-            <Text style={styles.text}>Contact Us</Text>
-          </TouchableOpacity>
-      </View>
-      <View style = {styles.container}>
-        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
-          style = {styles.frontPanelButtons}
-          onPress={() => navigation.navigate('Questions')}>
-          <Text style={styles.text}>Questions</Text> 
-          <View style={styles.circle}>
-              <Text style={styles.icon}>?</Text>
-          </View>
-        </TouchableOpacity>
-        
-        <TouchableOpacity style = {styles.frontPanelButtons}
-          onPress={() => navigation.navigate('Symptoms')}>
-          <Text style={styles.text}>Symptoms</Text>
-          <View style={styles.circle}>
-              <Text style={styles.icon}>+</Text>
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style = {styles.frontPanelButtons}
-          title = 'Responses'
-          onPress={() => navigation.navigate('Responses')}>
-          <Text style={styles.text}>Responses</Text>
-          <Image
-            style={styles.circle}
-            source={require('./assets/speechbubble.png')}
-          />
-        </TouchableOpacity>
-
-        <SafeAreaView>
-            <TextInput
-              style={styles.input}
-              placeholder="Search for a word: "
-              placeholderTextColor='#989CA2'
-            />
-          </SafeAreaView>
-      </View>
-    </View>
+      <Image
+        style={styles.logo}
+        source={require('./assets/painscale.jpg')}
+      />
+  </View>
   );
 }
 
@@ -375,9 +332,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    width: 375,
+    width: '90%',
     height: 80,
-    margin: 40,
+    margin: 20,
     paddingHorizontal: 30,
     borderRadius: 10,
     borderWidth: 1,
@@ -389,6 +346,10 @@ const styles = StyleSheet.create({
     fontFamily: 'JetBrainsMono',
     fontSize: 16,
     padding: 10,
+    width: '100%',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#6F7F97',
   },
     
    list:{
@@ -397,9 +358,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     width: 375,
+    height: 80,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#6F7F97',
     borderColor: '#6F7F97',
   },
 

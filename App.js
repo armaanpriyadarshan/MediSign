@@ -1,104 +1,8 @@
-import { StyleSheet, Text, View, Image, Alert, TouchableOpacity, Linking, SafeAreaView, TextInput, Button } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert, TouchableOpacity, Linking, SafeAreaView, TextInput, Button, ScrollView, StatusBar, } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useFonts } from "expo-font";
 
-
-function HomeScreen({ navigation }) {
-  useFonts({
-    'JetBrainsMono': require('./assets/fonts/JetBrainsMono-Regular.ttf'),
-  });
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-          <Image
-            style={styles.logo}
-            source={require('./assets/medisign.png')}
-          />
-          <Text style={styles.title}>MediSign</Text>
-          <TouchableOpacity style={styles.button} onPress={ () => Linking.openURL('mailto:apriyadarshan@wpi.edu') }>
-            <Text style={styles.title}>Contact Us</Text>
-          </TouchableOpacity>
-      </View>
-      <View style = {styles.container}>
-        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
-          style = {styles.frontPanelButtons}
-          onPress={() => navigation.navigate('Questions')}>
-          <Text style={styles.title}>Questions          </Text> 
-          <Text style={styles.title}>?</Text> 
-        </TouchableOpacity>
-        
-        <TouchableOpacity style = {styles.frontPanelButtons}
-          onPress={() => navigation.navigate('Symptoms')}>
-          <Text style={styles.title}>Symptoms</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style = {styles.frontPanelButtons}
-          title = 'Responses'
-          onPress={() => navigation.navigate('Responses')}>
-          <Text style={styles.title}>Responses</Text>
-        </TouchableOpacity>
-
-        <SafeAreaView style = {styles.frontPanelButtons}>
-            <TextInput
-              style={styles.input}
-              value={"Search for a word: "}
-            />
-          </SafeAreaView>
-      </View>
-    </View>
-  );
-}
-
-
-function QuestionsScreen({navigation}) {
-  useFonts({
-    'JetBrainsMono': require('./assets/fonts/JetBrainsMono-Regular.ttf'),
-  });
-
-  return (
-    <View style = {styles.container}>
-        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
-          style = {styles.frontPanelButtons}
-          onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.title}>Return to HomeScreen</Text> 
-        </TouchableOpacity>
-      </View>
-  );
-}
-
-function SymptomsScreen({navigation}) {
-  useFonts({
-    'JetBrainsMono': require('./assets/fonts/JetBrainsMono-Regular.ttf'),
-  });
-
-  return (
-    <View style = {styles.container}>
-        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
-          style = {styles.frontPanelButtons}
-          onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.title}>Return to HomeScreen</Text> 
-        </TouchableOpacity>
-      </View>
-  );
-}
-
-function ResponsesScreen({navigation}) {
-  useFonts({
-    'JetBrainsMono': require('./assets/fonts/JetBrainsMono-Regular.ttf'),
-  });
-
-  return (
-    <View style = {styles.container}>
-        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
-          style = {styles.frontPanelButtons}
-          onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.title}>Return to HomeScreen</Text> 
-        </TouchableOpacity>
-      </View>
-  );
-}
 
 const Stack = createNativeStackNavigator();
 
@@ -106,16 +10,315 @@ export default function App() {
   useFonts({
     'JetBrainsMono': require('./assets/fonts/JetBrainsMono-Regular.ttf'),
   });
+
   return (
 
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home" screenOptions={{headerShown: false}}>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Questions" component={QuestionsScreen} />
-        <Stack.Screen name="Symptoms" component={SymptomsScreen} />
-        <Stack.Screen name="Responses" component={ResponsesScreen} />
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="Questions" component={Questions} />
+        <Stack.Screen name="Symptoms" component={Symptoms} />
+        <Stack.Screen name="Responses" component={Responses} />
       </Stack.Navigator>
     </NavigationContainer>
+  );
+}
+
+
+function Home({ navigation }) {
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+          <Image
+            style={styles.logo}
+            source={require('./assets/medisign.png')}
+          />
+          <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.title}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.text}>MediSign</Text>   
+        </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={ () => Linking.openURL('mailto:apriyadarshan@wpi.edu') }>
+            <Text style={styles.text}>Contact Us</Text>
+          </TouchableOpacity>
+      </View>
+      <View style = {styles.container}>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.frontPanelButtons}
+          onPress={() => navigation.navigate('Questions')}>
+          <Text style={styles.text}>Questions</Text> 
+          <View style={styles.circle}>
+              <Text style={styles.icon}>?</Text>
+          </View>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style = {styles.frontPanelButtons}
+          onPress={() => navigation.navigate('Symptoms')}>
+          <Text style={styles.text}>Symptoms</Text>
+          <View style={styles.circle}>
+              <Text style={styles.icon}>+</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity style = {styles.frontPanelButtons}
+          title = 'Responses'
+          onPress={() => navigation.navigate('Responses')}>
+          <Text style={styles.text}>Responses</Text>
+          <Image
+            style={styles.circle}
+            source={require('./assets/speechbubble.png')}
+          />
+        </TouchableOpacity>
+
+        <SafeAreaView>
+            <TextInput
+              style={styles.input}
+              placeholder="Search for a word: "
+              placeholderTextColor='#989CA2'
+            />
+          </SafeAreaView>
+      </View>
+    </View>
+  );
+}
+
+function Questions({navigation}) {
+  return (
+    <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.scrollView}>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Question</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Question</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Question</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Question</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Question</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Question</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Question</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Question</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Question</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Question</Text> 
+        </TouchableOpacity>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
+  );
+}
+
+function Symptoms({navigation}) {
+  return (
+    <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.scrollView}>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Symptom</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Symptom</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Symptom</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Symptom</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Symptom</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Symptom</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Symptom</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Symptom</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Symptom</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Symptom</Text> 
+        </TouchableOpacity>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
+  );
+}
+
+function Responses({navigation}) {
+  return (
+    <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
+        <ScrollView style={styles.scrollView}>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Response</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Response</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Response</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Response</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Response</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Response</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Response</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Response</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Pain Scale</Text> 
+        </TouchableOpacity>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.list}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.phrase}>Body Chart</Text> 
+        </TouchableOpacity>
+        </ScrollView>
+      </SafeAreaView>
+    </View>
+  );
+}
+
+function PainScale({ navigation }) {
+  return (
+    <View style={styles.container}>
+      <View style={styles.header}>
+          <Image
+            style={styles.logo}
+            source={require('./assets/medisign.png')}
+          />
+          <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.title}
+          onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.text}>MediSign</Text>   
+        </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={ () => Linking.openURL('mailto:apriyadarshan@wpi.edu') }>
+            <Text style={styles.text}>Contact Us</Text>
+          </TouchableOpacity>
+      </View>
+      <View style = {styles.container}>
+        <TouchableOpacity // Credit to Touchable Opacity Code from https://stackoverflow.com/questions/44798426/how-to-change-background-color-of-react-native-button
+          style = {styles.frontPanelButtons}
+          onPress={() => navigation.navigate('Questions')}>
+          <Text style={styles.text}>Questions</Text> 
+          <View style={styles.circle}>
+              <Text style={styles.icon}>?</Text>
+          </View>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style = {styles.frontPanelButtons}
+          onPress={() => navigation.navigate('Symptoms')}>
+          <Text style={styles.text}>Symptoms</Text>
+          <View style={styles.circle}>
+              <Text style={styles.icon}>+</Text>
+          </View>
+        </TouchableOpacity>
+
+        <TouchableOpacity style = {styles.frontPanelButtons}
+          title = 'Responses'
+          onPress={() => navigation.navigate('Responses')}>
+          <Text style={styles.text}>Responses</Text>
+          <Image
+            style={styles.circle}
+            source={require('./assets/speechbubble.png')}
+          />
+        </TouchableOpacity>
+
+        <SafeAreaView>
+            <TextInput
+              style={styles.input}
+              placeholder="Search for a word: "
+              placeholderTextColor='#989CA2'
+            />
+          </SafeAreaView>
+      </View>
+    </View>
   );
 }
 
@@ -135,47 +338,77 @@ const styles = StyleSheet.create({
     marginTop: 50,
     width: '100%',
   },
-  
+    
   logo: {
-    width: 100,
+    width: 70,
+    height: 70,
     resizeMode: 'cover',
+    marginHorizontal: 20,
+    borderRadius: 10,
   },
 
-  title: {
+  text: {
     color: '#ECECEC',
     fontFamily: 'JetBrainsMono', 
     fontSize: 20,
-    
     paddingHorizontal: 10,
   },
-
-  circle: {
-    fontFamily: 'JetBrainsMono', 
-    fontSize: 20,
+  
+  icon: {
+    color: '#ECECEC',
     fontWeight: 'bold',
+    fontFamily: 'JetBrainsMono', 
+    fontSize: 36,
+  },
+  
+  circle: {
+    backgroundColor: "#232B35",
+    height: 60,
+    width: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   frontPanelButtons: {
     backgroundColor: '#313945',
-    textDecorationColor: '#ECECEC',
-    textAlign: 'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
     width: 375,
-    height: 70,
-    marginTop: 20, 
-    marginBottom: 40,
-    marginLeft: 40, 
-    marginRight: 40, 
-    paddingTop:20,
-    paddingBottom:20,
-    borderRadius:10,
+    height: 80,
+    margin: 40,
+    paddingHorizontal: 30,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: '#6F7F97',
-    justifyContent: 'center',
-    flexDirection: 'row',
   },
 
   input: {
     backgroundColor: '#313945',
-    color:'#'
+    fontFamily: 'JetBrainsMono',
+    fontSize: 16,
+    padding: 10,
+  },
+    
+   list:{
+    backgroundColor: '#313945',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    width: 375,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#6F7F97',
+    borderColor: '#6F7F97',
+  },
+
+  phrase:{
+    color: '#ECECEC',
+    fontFamily: 'JetBrainsMono', 
+    fontSize: 20,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });

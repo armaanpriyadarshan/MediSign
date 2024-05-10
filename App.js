@@ -105,9 +105,9 @@ function Home({ navigation }) {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.input} onPress={() => setShowModal(true)}>
+        {/* <TouchableOpacity style={styles.input} onPress={() => setShowModal(true)}>
             <Text style={styles.text}>Search for a word</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
           <Modal 
           transparent = {true}
           visible = {showModal}
